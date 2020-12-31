@@ -1,0 +1,10 @@
+new,booboo,True
+lol,1234,False
+samad,123,True
+boo,4326,False
+sam,55,False
+asdf,234,False
+dddd,dddd,False
+fff,fff,False
+rrr,fff,False
+gggg,ggg,False
