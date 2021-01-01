@@ -8,6 +8,20 @@ class SellerMainWindow(Tk):
         self.geometry('500x500')
         self.entries = []
         self.submitted_data = []
+        self.initialize_menu(username)
+        # self.initialize_labels()
+        # self.initialize_entries()
+        # self.initialize_buttons()
+        # self.fetch_existing_products()
+
+    def initialize_menu(self, username):
+        menubar = Menu(self)
+        account_menu = Menu(menubar, tearoff=0)
+        account_menu.add_command(label=username)
+        account_menu.add_separator()
+        account_menu.add_command(label="Exit", command=self.destroy)
+        menubar.add_cascade(label="My Account", menu=account_menu)
+        self.config(menu=menubar)
 
     def get_product_frame(self, name, price, seller):
         product_frame = Frame(self)
@@ -16,10 +30,6 @@ class SellerMainWindow(Tk):
         Label(product_frame, text="Price: "+price).grid(row=0, column=2)
         Label(product_frame, text="Seller: "+seller).grid(row=1, column=2)
         return product_frame
-##        self.initialize_labels()
-##        self.initialize_entries()
-##        self.initialize_button()
-        self.fetch_existing_products()
 
 ##
 ##
@@ -44,3 +54,6 @@ class SellerMainWindow(Tk):
 ##            db.write(t + '\n')
 ##        self.submitted_data.append(t)
 ##        Label(self, text=t, padx=30).grid(row=len(self.submitted_data)-1, column=2)
+
+if __name__ == '__main__':
+    SellerMainWindow("samad123").mainloop()

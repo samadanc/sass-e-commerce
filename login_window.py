@@ -3,7 +3,7 @@ from signup_window import SignupWindow
 from message_window import MessageWindow
 from seller_main_window import SellerMainWindow
 from buyer_main_window import BuyerMainWindow
-from db.database import *
+from database import *
 
 
 class LoginWindow(Tk):
@@ -36,7 +36,7 @@ class LoginWindow(Tk):
         signup.mainloop()
 
     def on_check(self):
-        print(self.seller_checkbox.grab_current())
+        print(self.seller_checkbox.get())
 
     def on_login_click(self):
         if self.seller_checkbox.get():

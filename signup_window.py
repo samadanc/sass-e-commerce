@@ -1,6 +1,6 @@
 from tkinter import *
 from message_window import MessageWindow
-from db.database import *
+from database import *
 
 
 class SignupWindow(Tk):
@@ -43,5 +43,5 @@ class SignupWindow(Tk):
             warning.mainloop()
         else:
             save_user(user)
-            MessageWindow("User successfully created.", warning=False).mainloop()
             self.destroy()
+            MessageWindow("User successfully created.", warning=False).mainloop()

@@ -2,10 +2,11 @@ from Backend.seller import Seller
 from Backend.buyer import Buyer
 from Backend.product import Product
 from Backend.sale import Sale
+from datetime import datetime
 
-users_db = "users.txt"
-products_db = "products.txt"
-sales_db = "sales.txt"
+users_db = "db/users.txt"
+products_db = "db/products.txt"
+sales_db = "db/sales.txt"
 
 
 def save_product(product):
@@ -60,41 +61,49 @@ def get_products():
 
 
 def get_sales():
+    date_format = '%Y%m%d%H%M%S'
     sales_objects = []
     with open(sales_db, "r") as db:
         sales_list = [sale.split(",") for sale in db.read().splitlines()]
     for sale in sales_list:
         sale_products = sale[1].strip('[]').split(';')
-        sales_objects.append(Sale(sale[0], sale_products, sale[2]))
+        from_date = datetime.strptime(sale[3], date_format)
+        to_date = datetime.strptime(sale[4], date_format)
+        sales_objects.append(Sale(sale[0], sale_products, sale[2], from_date, to_date))
     return sales_objects
 
 
 def get_seller_sales(seller):
+    date_format = '%Y%m%d%H%M%S'
     sales_objects = []
     with open(sales_db, "r") as db:
         sales_list = [sale.split(",") for sale in db.read().splitlines()]
     for sale in sales_list:
         if sale[0] == seller:
+            from_date = datetime.strptime(sale[3], date_format)
+            to_date = datetime.strptime(sale[4], date_format)
             sale_products = sale[1].strip('[]').split(';')
-            sales_objects.append(Sale(sale[0], sale_products, sale[2]))
+            sales_objects.append(Sale(sale[0], sale_products, sale[2], from_date, to_date))
     return sales_objects
 
 
 def get_product_discount(product):
+    now = datetime.now()
     discount = 0
     sales = get_sales()
     for sale in sales:
         for sale_product in sale.get_products():
-            if sale_product == product:
+            if sale_product == product and (sale.get_from_date() < now < sale.get_to_date()):
                 discount = sale.get_discount()
     return discount
 
 
 def apply_discounts(products):
+    now = datetime.now()
     sales = get_sales()
     for product in products:
         for sale in sales:
-            if product in sale:
+            if product in sale and (sale.get_from_date() < now < sale.get_to_date()):
                 discount = 1-(float(sale.get_discount())/100)
                 product.set_price(product.get_price() * discount)
 

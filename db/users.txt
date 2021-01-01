@@ -1,10 +1,7 @@
-new,booboo,True
-lol,1234,False
-samad,123,True
-boo,4326,False
-sam,55,False
-asdf,234,False
-dddd,dddd,False
-fff,fff,False
-rrr,fff,False
-gggg,ggg,False
+seller,guest,True
+buyer,guest,False
+samad,123,False
+samad,,False
+lol,222,False
+sss,111,False
+fff,111,False

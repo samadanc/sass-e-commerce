@@ -8,11 +8,20 @@ class BuyerMainWindow(Tk):
         self.geometry('500x500')
         self.entries = []
         self.submitted_data = []
+        self.initialize_menu(username)
 ##        self.initialize_labels()
 ##        self.initialize_entries()
 ##        self.initialize_button()
         self.fetch_existing_products()
 
+    def initialize_menu(self, username):
+        menubar = Menu(self)
+        account_menu = Menu(menubar, tearoff=0)
+        account_menu.add_command(label=username)
+        account_menu.add_separator()
+        account_menu.add_command(label="Exit", command=self.destroy)
+        menubar.add_cascade(label="My Account", menu=account_menu)
+        self.config(menu=menubar)
 ##
 ##
 ##    def get_data(self):
