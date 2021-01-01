@@ -45,6 +45,7 @@ class LoginWindow(Tk):
             user = Buyer(self.entries[0].get(), self.entries[1].get())
 
         if user in get_users():
+            self.destroy()
             if user.is_seller():
                 SellerMainWindow(user.get_username()).mainloop()
             else:

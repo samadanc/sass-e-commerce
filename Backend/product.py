@@ -6,7 +6,7 @@ class Product:
         self.seller = seller
 
     def __str__(self):
-        return self.name + str(self.price) + self.seller
+        return self.name + str(self.price) + self.description + self.seller
 
     def __eq__(self, product2):
         return self.name == product2.get_name()

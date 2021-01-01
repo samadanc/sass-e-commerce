@@ -19,6 +19,11 @@ def save_user(user):
         db.write(str(user) + '\n')
 
 
+def save_sale(sale):
+    with open(sales_db, "a+") as db:
+        db.write(str(sale) + '\n')
+
+
 def get_sellers():
     user_objects = []
     with open(users_db, "r") as db:
@@ -57,6 +62,16 @@ def get_products():
         products_list = [user.split(",") for user in db.read().splitlines()]
     for product in products_list:
         product_objects.append(Product(product[0], product[1], product[2], product[3]))
+    return product_objects
+
+
+def get_seller_products(seller):
+    product_objects = []
+    with open(products_db, "r") as db:
+        products_list = [user.split(",") for user in db.read().splitlines()]
+    for product in products_list:
+        if product[3] == seller:
+            product_objects.append(Product(product[0], product[1], product[2], product[3]))
     return product_objects
 
 
@@ -109,11 +124,6 @@ def apply_discounts(products):
 
 
 def get_seller_products_with_discount(seller):
-    product_objects = []
-    with open(products_db, "r") as db:
-        products_list = [user.split(",") for user in db.read().splitlines()]
-    for product in products_list:
-        if product[3] == seller:
-            product_objects.append(Product(product[0], product[1], product[2], product[3]))
+    product_objects = get_seller_products(seller)
     apply_discounts(product_objects)
     return product_objects
