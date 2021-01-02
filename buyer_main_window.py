@@ -1,4 +1,5 @@
 from tkinter import *
+from database import *
 
 
 class BuyerMainWindow(Tk):
@@ -8,40 +9,36 @@ class BuyerMainWindow(Tk):
         self.geometry('500x500')
         self.entries = []
         self.submitted_data = []
-        self.initialize_menu(username)
-##        self.initialize_labels()
-##        self.initialize_entries()
-##        self.initialize_button()
-        self.fetch_existing_products()
+        self.initializeScreen()        
+    
+    def get_product_frame(self, product, location):
+        product_frame = Frame(location)
+        Label(product_frame, text="Name: "+product.get_name()).grid(row=0, column=0)
+        Label(product_frame, text="Price: "+str(product.get_price())).grid(row=1, column=0)
+        Label(product_frame, text="Description: "+product.get_description()).grid(row=2, column=0)
+        Label(product_frame, text="Seller: "+product.get_seller()).grid(row=3, column=0)
+        Button(product_frame, text="Buy", command=self.buy_command).grid(row=4, column=0)
+        
+        return product_frame
 
-    def initialize_menu(self, username):
-        menubar = Menu(self)
-        account_menu = Menu(menubar, tearoff=0)
-        account_menu.add_command(label=username)
-        account_menu.add_separator()
-        account_menu.add_command(label="Exit", command=self.destroy)
-        menubar.add_cascade(label="My Account", menu=account_menu)
-        self.config(menu=menubar)
-##
-##
-##    def get_data(self):
-##        entries_list = [entry.get() for entry in self.entries]
-##        return ",".join(entries_list)
-##
-##    def initialize_labels(self):
-##        Label(self, text='Name').grid(row=0,column=0)
-##        Label(self, text='Age').grid(row=1,column=0)
-##        Label(self, text='Location').grid(row=2,column=0)
-##    def initialize_entries(self):
-##        for i in range(3):
-##            self.entries.append(Entry(self))
-##            self.entries[i].grid(row=i,column=1)
-##    def initialize_button(self):
-##        b = Button(self, text="Submit", command=self.on_submit_click)
-##        b.grid(row=3, column=1)
-##    def on_submit_click(self):
-##        t = self.get_data()
-##        with open(db_file, mode="a") as db:
-##            db.write(t + '\n')
-##        self.submitted_data.append(t)
-##        Label(self, text=t, padx=30).grid(row=len(self.submitted_data)-1, column=2)
+    def product(self, products, frame, index, loc):
+        if index < len(products):
+            return self.get_product_frame(products[index],frame).grid(row=loc[0], column=loc[1])
+        
+    def create_multi_frame(self, products):
+        multi_frame = Frame(self)
+        row = 0
+        for i in range(0,len(products),3):
+            self.product(products,multi_frame,i,[row,0])
+            self.product(products,multi_frame,i+1,[row,1])
+            self.product(products,multi_frame,i+2,[row,2])
+            row += 1
+        return multi_frame
+        
+    def initializeScreen(self):        
+        products = get_products()
+        #apply_discounts(products)
+        self.create_multi_frame(products).grid(row=0, column=0)
+
+    def buy_command(self):
+        print("product bought")
