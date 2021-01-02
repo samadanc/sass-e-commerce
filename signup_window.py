@@ -7,13 +7,12 @@ class SignupWindow(Tk):
     def __init__(self):
         Tk.__init__(self)
         self.title("Sass-E-Commerce - Sign Up")
-        self.geometry('500x500')
+        self.geometry('320x180')
         self.entries = []
         self.initialize_labels()
         self.initialize_entries()
         self.initialize_signup_button()
         self.seller_check = BooleanVar()
-        # TODO: Solve bug with check box always having false when 2 Tks opened
         Checkbutton(self, text="I am a seller", var=self.seller_check, command=self.oncheck).grid(row=2, column=1)
 
     def oncheck(self):

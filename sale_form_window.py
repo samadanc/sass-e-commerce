@@ -43,11 +43,11 @@ class SaleForm(Tk):
         b.grid(row=3, column=1)
 
     def on_submit_click(self):
-        from_date = datetime.strptime(self.entries[1], '%Y-%m-%d')
-        to_date = datetime.strptime(self.entries[2], '%Y-%m-%d')
+        from_date = datetime.strptime(self.entries[1].get(), '%Y-%m-%d')
+        to_date = datetime.strptime(self.entries[2].get(), '%Y-%m-%d')
         products = []
         for i in range(len(self.chosen_products)):
             if self.chosen_products[i]:
                 products.append(self.products[i])
-        save_sale(Sale(self.seller, products, self.entries[0], from_date, to_date))
+        save_sale(Sale(self.seller, products, self.entries[0].get(), from_date, to_date))
         self.destroy()

@@ -10,7 +10,7 @@ class LoginWindow(Tk):
     def __init__(self):
         Tk.__init__(self)
         self.title("Sass-E-Commerce - Login")
-        self.geometry('500x500')
+        self.geometry('320x180')
         self.entries = []
         self.initialize_labels()
         self.initialize_entries()

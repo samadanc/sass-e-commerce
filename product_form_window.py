@@ -1,5 +1,6 @@
 from tkinter import *
 from database import *
+from message_window import MessageWindow
 
 
 class ProductForm(Tk):
@@ -28,5 +29,6 @@ class ProductForm(Tk):
         b.grid(row=3, column=1)
 
     def on_submit_click(self):
-        save_product(Product(self.entries[0], self.entries[1], self.entries[2], self.seller))
+        save_product(Product(self.entries[0].get(), self.entries[1].get(), self.entries[2].get(), self.seller))
         self.destroy()
+        MessageWindow("Product Added", warning=False).mainloop()

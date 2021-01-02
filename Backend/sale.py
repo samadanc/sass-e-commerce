@@ -17,7 +17,8 @@ class Sale:
         products_str = products_str.replace(" ", "")
         products_str = products_str.replace("'", "")
         products_str = products_str.replace(",", ";")
-        return self.seller + "," + products_str + "," + str(self.discount)
+        date_format = '%Y%m%d%H%M%S'
+        return self.seller + "," + products_str + "," + str(self.discount) + "," + self.from_date.strftime(date_format) + "," + self.to_date.strftime(date_format)
 
     def __contains__(self, product):
         if product in self.products:

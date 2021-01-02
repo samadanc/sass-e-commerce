@@ -118,9 +118,9 @@ def apply_discounts(products):
     sales = get_sales()
     for product in products:
         for sale in sales:
-            if product in sale and (sale.get_from_date() < now < sale.get_to_date()):
+            if product.get_name() in sale and (sale.get_from_date() < now < sale.get_to_date()):
                 discount = 1-(float(sale.get_discount())/100)
-                product.set_price(product.get_price() * discount)
+                product.set_price(float(product.get_price()) * discount)
 
 
 def get_seller_products_with_discount(seller):

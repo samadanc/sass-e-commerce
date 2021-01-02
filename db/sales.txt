@@ -1,3 +1,1 @@
-hhhh,[P1;P2;P3],50
-hhhh,[P4;P5;P6],20
-hhhh,[P9;P10;P3],50
+hhhh,[newProd;newProd22;nnnn],20,20201010000000,20211010000000

@@ -1,5 +1,6 @@
 from tkinter import *
 from database import *
+from message_window import MessageWindow
 
 
 class BuyerMainWindow(Tk):
@@ -8,8 +9,7 @@ class BuyerMainWindow(Tk):
         self.title("Sass-E-Commerce - Main")
         self.geometry('500x500')
         self.entries = []
-        self.submitted_data = []
-        self.initializeScreen()        
+        self.initialize_screen()
     
     def get_product_frame(self, product, location):
         product_frame = Frame(location)
@@ -28,17 +28,17 @@ class BuyerMainWindow(Tk):
     def create_multi_frame(self, products):
         multi_frame = Frame(self)
         row = 0
-        for i in range(0,len(products),3):
-            self.product(products,multi_frame,i,[row,0])
-            self.product(products,multi_frame,i+1,[row,1])
-            self.product(products,multi_frame,i+2,[row,2])
+        for i in range(0, len(products), 3):
+            self.product(products, multi_frame, i, [row, 0])
+            self.product(products, multi_frame, i+1, [row, 1])
+            self.product(products, multi_frame, i+2, [row, 2])
             row += 1
         return multi_frame
         
-    def initializeScreen(self):        
+    def initialize_screen(self):
         products = get_products()
         #apply_discounts(products)
         self.create_multi_frame(products).grid(row=0, column=0)
 
     def buy_command(self):
-        print("product bought")
+        MessageWindow("Product Bought!", warning=False).mainloop()
